@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Essential 8</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 id = "heading1">Essential 8 Assessment</h1>
+      <form class = "input">
+        <!-- <label for="name">Name:</label> -->
+        <input type="text" id="name" placeholder="Name" name="name" required />
+        <br>
+        <!-- <label for="company">Company Name:</label> -->
+        <input type="text" id="company" placeholder="Company Name" name="company" required />
+        <br>
+        <!-- <label for="phone">Phone Number:</label> -->
+        <input type="tel" id="phone" placeholder="Phone Number" name="phone" required />
+        <br>
+        <!-- <label for="email">Email Address:</label> -->
+        <input type="email" id="email" placeholder="Email Address" name="email" required />
+        <br>
+        <button type="submit" id="submitButton">Start</button>
+      </form>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </body>
+</html>
