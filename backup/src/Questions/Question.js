@@ -2,14 +2,13 @@ import React from 'react';
 
 
 const Question = ({ question, onOptionChange }) => {
-    // const isLastQuestionOfEssential = question.maturityLevel !== 3; // Assuming maximum maturity level is 3
+    const isLastQuestionOfEssential = question.maturityLevel !== 3; // Assuming maximum maturity level is 3
     const handleNextQuestion=()=>{
         var selectedOption = document.querySelector('input[name="options"]:checked');
         if(selectedOption){
-            console.log("this is the selected option");
-            console.log(selectedOption.value);
             onOptionChange(selectedOption.value);
             selectedOption.checked=false;
+            // console.log(selectedOption.value);
         }
         else {
             console.log("select a option");

@@ -32,7 +32,7 @@ const App = () => {
           ["Not Implemented: The organization does not have procedures in place for regularly applying security patches to operating systems and software.", 0], 
           ["Initial Implementation: The organization has started implementing patch management procedures, but they are not yet consistently applied or may not cover all systems and software.", 1],
           ["Developing: The organization has some patch management procedures in place, and efforts are underway to ensure regular application of security patches, but there is room for improvement and consistency.", 1], 
-          ["Partially Implemented: The organization has made progress in establishing patch management procedures, but there are still significant gaps or systems and software that do not receive regular security patches.", 1],
+          ["Partially Implemented: The organization has made progress in establishing patch management procedures, but there are still significant gaps or systems and software that do not receive regular security patches.", 1]
           ["Fully Implemented: The organization has fully established procedures for regularly applying security patches to operating systems and software, covering all critical systems and software components.", 2]
         ],
         choosedOption: null,
@@ -43,7 +43,7 @@ const App = () => {
           ["Not Implemented: Data encryption is not used to protect sensitive information stored on company devices or transmitted over networks.", 0], 
           ["Initial Implementation: The organization has started to implement data encryption for sensitive information, but it is not yet consistently applied across all devices and network transmissions.", 1],
           ["Developing: The organization has made some progress in implementing data encryption measures, and efforts are underway to ensure its consistent use, but there is room for improvement. ", 1], 
-          ["Partially Implemented: Data encryption is partially implemented to protect sensitive information, but there are still significant gaps in coverage or some devices and network channels remain unencrypted.", 1],
+          ["Partially Implemented: Data encryption is partially implemented to protect sensitive information, but there are still significant gaps in coverage or some devices and network channels remain unencrypted.", 1]
           ["Fully Implemented: The organization has fully implemented data encryption to protect sensitive information on company devices and during network transmissions.", 2]
         ],
         choosedOption: null,
@@ -51,48 +51,28 @@ const App = () => {
     ],
     essential2: [
       {
-        question: "Patch Applications: Is there a documented process for assessing software applications for security vulnerabilities and updates?",
-        options: [
-          ["Not Implemented: The organization does not have a documented process for assessing software applications for security vulnerabilities and updates.", 0], 
-          ["Initial Development: The organization has started developing a process for assessing software applications for security vulnerabilities and updates, but it is not yet fully documented or consistently applied.", 1],
-          ["Developing: The organization has made some progress in creating a process for assessing software applications, and efforts are underway to improve its documentation and implementation.", 1], 
-          ["Partially Implemented: The organization has a partially documented process for assessing software applications for security vulnerabilities and updates, but there are still significant gaps in coverage or consistency.", 1],
-          ["Fully Implemented: The organization has a well-documented and established process for assessing software applications for security vulnerabilities and updates, consistently applied across the organization.", 2]
-        ],
+        question: "Are users in your organization educated on basic safe browsing habits and warned against downloading files from untrusted sources?",
+        options: ["Yes", "No"],
         choosedOption: null,
+        maturityLevel: 0,
       },
       {
-        question: "Patch Testing: Are non-critical patches tested for compatibility and stability before deployment?",
-        options: [
-          ["Not Implemented: The organization does not have a process for testing non-critical patches for compatibility and stability before deployment.", 0], 
-          ["Initial Development: The organization has started developing a process for testing non-critical patches, but it is not yet fully established or consistently applied. ", 1],
-          ["Developing: The organization has made some progress in creating a process for testing non-critical patches, and efforts are underway to improve its implementation and coverage", 1], 
-          ["Partially Implemented: The organization has a partially established process for testing non-critical patches for compatibility and stability, but there are still significant gaps or inconsistencies. ", 1],
-          ["Fully Implemented: The organization has a well-established process for testing non-critical patches for compatibility and stability before deployment, consistently applied across the organization.", 2]
-        ],
+        question: "Do you have browser extensions or security settings in place to block known malicious websites and warn users about potentially harmful content?",
+        options: ["Yes", "No"],
         choosedOption: null,
+        maturityLevel: 1,
       },
       {
-        question: "Emergency Patching: Is there a process for emergency patching to address critical security vulnerabilities?",
-        options: [
-          ["Not Implemented: The organization does not have a process for emergency patching to address critical security vulnerabilities.", 0], 
-          ["Initial Development: The organization has started developing a process for emergency patching, but it is not yet fully established or consistently followed.", 1],
-          ["Developing: The organization has made some progress in creating a process for emergency patching, and efforts are underway to improve its implementation and response time.", 1], 
-          ["Partially Implemented: The organization has a partially established process for emergency patching to address critical security vulnerabilities, but there are still significant gaps or inconsistencies in the response.", 1],
-          ["Fully Implemented: The organization has a well-established process for emergency patching, enabling a swift and effective response to critical security vulnerabilities as they arise.", 2]
-        ],
+        question: "Has your organization implemented web content filtering and sandboxing mechanisms to isolate potentially malicious or untrusted files and URLs?",
+        options: ["Yes", "No"],
         choosedOption: null,
+        maturityLevel: 2,
       },
       {
-        question: "Patch Verification: Are there procedures to monitor and verify the successful application of software patches across the organization",
-        options: [
-          ["Not Implemented: The organization does not have procedures to monitor and verify the successful application of software patches across the organization.", 0], 
-          ["Initial Development: The organization has started developing procedures for patch verification, but they are not yet fully established or consistently followed.", 1],
-          ["Developing: The organization has made some progress in creating procedures for patch verification, and efforts are underway to improve their implementation and coverage.", 1], 
-          ["Partially Implemented: The organization has partially established procedures to monitor and verify the successful application of software patches, but there are still significant gaps or inconsistencies in the verification process.", 1],
-          ["Fully Implemented: The organization has well-established procedures to monitor and verify the successful application of software patches across the organization, ensuring a reliable and comprehensive verification process.", 2]
-        ],
+        question: "Do you employ advanced techniques such as runtime application self-protection (RASP) or browser isolation to mitigate the risks of web-based attacks?",
+        options: ["Yes", "No"],
         choosedOption: null,
+        maturityLevel: 3,
       },
     ],
     essential3: [
@@ -261,42 +241,24 @@ const App = () => {
   const handleOptionChange = (selectedOption) => {
     // Find the current essential questions based on the current maturity level
     const currentEssentialQuestions = questionnaire[`essential${currentEssential}`];
-  
     // Update the user's answer for the current question
-    const updatedQuestions = currentEssentialQuestions.map((question, index) =>
+    currentEssentialQuestions.map((question, index) =>
       index === currentQuestion
         ? { ...question, choosedOption: selectedOption }
         : question
     );
-  
-    // Find the question text for the current question
-    const currentQuestionKey = updatedQuestions[currentQuestion].question;
-  
-    // Update the userResponses state with the integer value
+    const currentQuestionKey = questionnaire[`essential${currentEssential}`][currentQuestion].question;
+    console.log(currentQuestionKey);
     setUserResponses((prevResponses) => ({
       ...prevResponses,
       [currentQuestionKey]: selectedOption,
     }));
-  
-    // Check if it's the last question of the current essential
-    questionnaire[`essential${currentEssential}`][currentQuestion]["choosedOption"] = selectedOption;
-    if(currentQuestion === currentEssentialQuestions.length - 1){
-      setcurrentEssential((prevEssential) => prevEssential + 1);
+    if (selectedOption === "No"||currentQuestion===3) {
+      setcurrentEssential((prevEssential)=>prevEssential+1);
       setCurrentQuestion(0);
     }
-    else if(currentQuestion < 1){
-      setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-      // console.log("----maturity = ",questionnaire[`essential${currentEssential}`][0]["choosedOption"]);
-    }
-    else if(currentQuestion >= 1){
-      // console.log("----maturity = ",questionnaire[`essential${currentEssential}`][1]["choosedOption"]);
-      const sumofmaturity = parseInt(questionnaire[`essential${currentEssential}`][0]["choosedOption"]) + parseInt(questionnaire[`essential${currentEssential}`][1]["choosedOption"]);
-      // console.log("sum of maturity = ",sumofmaturity);
-      if(sumofmaturity >= 3)setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-      else{
-        setcurrentEssential((prevEssential) => prevEssential + 1);
-        setCurrentQuestion(0);
-      }
+    else{
+      setCurrentQuestion((prevQuestion)=>prevQuestion+1);
     }
   };
   useEffect(() => {
